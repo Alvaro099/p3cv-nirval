@@ -173,16 +173,58 @@ export default function Chat() {
           to   { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
         }
 
+        /* ── Back Arrow Button ── */
+        .back-arrow-btn {
+          position: absolute;
+          top: 4vh;
+          left: 3vw;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          pointer-events: all;
+          opacity: 0;
+          transform: translateX(-20px);
+          transition: opacity 0.4s ease, transform 0.4s ease, filter 0.2s ease;
+        }
+        .back-arrow-btn.mounted {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .back-arrow-btn:hover {
+          filter: brightness(1.5) drop-shadow(0 0 8px rgba(141, 246, 255, 0.6));
+        }
+        .back-arrow-icon {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 32px;
+          color: #c4001a;
+          line-height: 1;
+        }
+        .back-arrow-text {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 26px;
+          letter-spacing: 2px;
+          color: #fff;
+          line-height: 1;
+        }
+
         /* ── Layout ── */
         .chat-layout-grid {
           position: absolute;
           inset: 0;
           z-index: 10;
           display: grid;
-          grid-template-columns: 1fr 1fr minmax(350px, 450px);
+          grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr) minmax(350px, 450px);
           padding: 5vh 5vw 4vh;
           gap: 24px;
           pointer-events: none;
+          overflow-x: auto;
+          overflow-y: hidden;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(140, 239, 255, 0.3) transparent;
         }
 
         .chat-column-placeholder {
@@ -196,6 +238,11 @@ export default function Chat() {
           opacity: 0;
           transform: translateY(20px);
           transition: opacity 0.4s ease 0.3s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+          overflow-y: auto;
+          overflow-x: hidden;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(140, 239, 255, 0.3) transparent;
+          min-height: 0;
         }
         .chat-column-placeholder.mounted {
           opacity: 1; transform: translateY(0);
@@ -217,10 +264,11 @@ export default function Chat() {
 
         .chat-overlay {
           display: grid;
-          grid-template-rows: auto 1fr auto;
+          grid-template-rows: auto minmax(0, 1fr) auto;
           gap: 0;
           height: 100%;
           pointer-events: none;
+          min-height: 0;
         }
 
         /* ── Header ── */
@@ -579,6 +627,12 @@ export default function Chat() {
       {/* Entry sweep */}
       <div className="chat-entry-mask" aria-hidden="true" />
 
+      {/* Back Arrow Button */}
+      <button className={`back-arrow-btn${mounted ? " mounted" : ""}`} onClick={() => navigate(-1)}>
+        <span className="back-arrow-icon">◄</span>
+        <span className="back-arrow-text">VOLVER AL MENÚ</span>
+      </button>
+
       {/* ── Modal de nombre ─────────────────────────────── */}
       {showNameModal && (
         <div className="chat-modal-bg">
@@ -619,129 +673,129 @@ export default function Chat() {
 
       {/* ── Main chat layout grid ─────────────────────────────── */}
       <div className="chat-layout-grid">
-        
+
         {/* Columna 1: Iframes o Widgets/Plugins */}
         <div className={`chat-column-placeholder${mounted ? " mounted" : ""}`}>
-          <div className="chat-column-title">PLUGINS & IFRAMES</div>
+          <div className="chat-column-title">SECCION DE NOTICIAS</div>
           <div className="chat-column-content-hint">
-            [ Espacio reservado para insertar iframes, widgets u otros plugins en el futuro ]
+            [ Queda por ver como traer la info mas relevante con respecto al fighting ]
           </div>
         </div>
 
         {/* Columna 2: Textos o Imágenes */}
         <div className={`chat-column-placeholder${mounted ? " mounted" : ""}`} style={{ transitionDelay: "0.4s" }}>
-          <div className="chat-column-title">MULTIMEDIA</div>
+          <div className="chat-column-title">COSAS QUE ME GUSTAN</div>
           <div className="chat-column-content-hint">
-            [ Espacio reservado para insertar textos, imágenes o descripciones ]
+            [ Pensamientos mañosos y cosas que me gustan ]
           </div>
         </div>
 
         {/* Columna 3: El Chat */}
         <div className="chat-overlay">
-        {/* Header */}
-        <div className={`chat-header${mounted ? " mounted" : ""}`}>
-          <div className="chat-header-index">05</div>
-          <div className="chat-header-title">CHAT EN VIVO</div>
-          <div
-            className="chat-header-user"
-            onClick={() => {
-              setNameInput(username);
-              setShowNameModal(true);
-            }}
-            title="Cambiar nombre"
-          >
-            <span className="chat-online-dot" />
-            {username || "???"}
+          {/* Header */}
+          <div className={`chat-header${mounted ? " mounted" : ""}`}>
+            <div className="chat-header-index">05</div>
+            <div className="chat-header-title">CHAT EN VIVO</div>
+            <div
+              className="chat-header-user"
+              onClick={() => {
+                setNameInput(username);
+                setShowNameModal(true);
+              }}
+              title="Cambiar nombre"
+            >
+              <span className="chat-online-dot" />
+              {username || "???"}
+            </div>
           </div>
-        </div>
 
-        {/* Messages */}
-        <div className={`chat-messages-wrap${mounted ? " mounted" : ""}`}>
-          <div className="chat-messages-panel">
-            {firebaseError && (
-              <div className="chat-error-banner">
-                ⚠ ERROR AL CONECTAR — VERIFICÁ LA CONFIGURACIÓN DE FIREBASE
-              </div>
-            )}
-
-            {messages.length === 0 && !firebaseError && (
-              <div style={{
-                fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: "20px",
-                letterSpacing: "2px",
-                color: "rgba(133,244,255,0.35)",
-                textAlign: "center",
-                marginTop: "auto",
-                padding: "40px 0",
-              }}>
-                SÉ EL PRIMERO EN ESCRIBIR
-              </div>
-            )}
-
-            {messages.map((msg, i) => {
-              const isMine = msg.username === username;
-              const color = colorForUser(msg.username || "???");
-
-              // Date divider
-              const showDivider =
-                i === 0 ||
-                (msg.createdAt &&
-                  messages[i - 1]?.createdAt &&
-                  msg.createdAt.toDate?.().toDateString() !==
-                  messages[i - 1].createdAt.toDate?.().toDateString());
-
-              return (
-                <div key={msg.id}>
-                  {showDivider && msg.createdAt && (
-                    <div className="chat-date-divider">
-                      <div className="chat-date-divider-label">
-                        {msg.createdAt.toDate?.().toLocaleDateString("es-AR", {
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </div>
-                    </div>
-                  )}
-                  <div className={`chat-msg${isMine ? " mine" : ""}`}>
-                    <div className="chat-msg-meta">
-                      <div className="chat-msg-name" style={{ color }}>
-                        {msg.username || "???"}
-                      </div>
-                      <div className="chat-msg-time">{formatTime(msg.createdAt)}</div>
-                    </div>
-                    <div className="chat-msg-bubble">{msg.text}</div>
-                  </div>
+          {/* Messages */}
+          <div className={`chat-messages-wrap${mounted ? " mounted" : ""}`}>
+            <div className="chat-messages-panel">
+              {firebaseError && (
+                <div className="chat-error-banner">
+                  ⚠ ERROR AL CONECTAR — VERIFICÁ LA CONFIGURACIÓN DE FIREBASE
                 </div>
-              );
-            })}
-            <div ref={bottomRef} />
-          </div>
-        </div>
+              )}
 
-        {/* Input */}
-        <form
-          className={`chat-input-row${mounted ? " mounted" : ""}`}
-          onSubmit={handleSubmit}
-        >
-          <input
-            ref={inputRef}
-            className="chat-input"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={username ? "ESCRIBÍ TU MENSAJE..." : "PRIMERO ELEGÍ UN NOMBRE..."}
-            disabled={sending || !username}
-            autoComplete="off"
-            maxLength={300}
-          />
-          <button
-            type="submit"
-            className="chat-send"
-            disabled={sending || !input.trim() || !username}
+              {messages.length === 0 && !firebaseError && (
+                <div style={{
+                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontSize: "20px",
+                  letterSpacing: "2px",
+                  color: "rgba(133,244,255,0.35)",
+                  textAlign: "center",
+                  marginTop: "auto",
+                  padding: "40px 0",
+                }}>
+                  SÉ EL PRIMERO EN ESCRIBIR
+                </div>
+              )}
+
+              {messages.map((msg, i) => {
+                const isMine = msg.username === username;
+                const color = colorForUser(msg.username || "???");
+
+                // Date divider
+                const showDivider =
+                  i === 0 ||
+                  (msg.createdAt &&
+                    messages[i - 1]?.createdAt &&
+                    msg.createdAt.toDate?.().toDateString() !==
+                    messages[i - 1].createdAt.toDate?.().toDateString());
+
+                return (
+                  <div key={msg.id}>
+                    {showDivider && msg.createdAt && (
+                      <div className="chat-date-divider">
+                        <div className="chat-date-divider-label">
+                          {msg.createdAt.toDate?.().toLocaleDateString("es-AR", {
+                            day: "2-digit",
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </div>
+                      </div>
+                    )}
+                    <div className={`chat-msg${isMine ? " mine" : ""}`}>
+                      <div className="chat-msg-meta">
+                        <div className="chat-msg-name" style={{ color }}>
+                          {msg.username || "???"}
+                        </div>
+                        <div className="chat-msg-time">{formatTime(msg.createdAt)}</div>
+                      </div>
+                      <div className="chat-msg-bubble">{msg.text}</div>
+                    </div>
+                  </div>
+                );
+              })}
+              <div ref={bottomRef} />
+            </div>
+          </div>
+
+          {/* Input */}
+          <form
+            className={`chat-input-row${mounted ? " mounted" : ""}`}
+            onSubmit={handleSubmit}
           >
-            ENVIAR
-          </button>
-        </form>
+            <input
+              ref={inputRef}
+              className="chat-input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={username ? "ESCRIBÍ TU MENSAJE..." : "PRIMERO ELEGÍ UN NOMBRE..."}
+              disabled={sending || !username}
+              autoComplete="off"
+              maxLength={300}
+            />
+            <button
+              type="submit"
+              className="chat-send"
+              disabled={sending || !input.trim() || !username}
+            >
+              ENVIAR
+            </button>
+          </form>
         </div>
       </div>
 

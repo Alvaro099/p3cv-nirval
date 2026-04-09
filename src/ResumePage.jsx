@@ -13,6 +13,8 @@ const EDUCATION_ROWS = [
   { index: "02", title: "RED BULL KUMITE - 2025", status: "Complete" },
   { index: "03", title: "RAGNAROK 2024", status: "Complete" },
   { index: "04", title: "RAGNAROK 2025", status: "Complete" },
+  { index: "05", title: "DARK WINTER 2026", status: "Complete" },
+  { index: "06", title: "TORNEOS SEMANALES EN VALQUIRIA", status: "In Progress" },
 ];
 
 const GAMES_ROWS = [
@@ -20,10 +22,12 @@ const GAMES_ROWS = [
   { index: "02", title: "STREET FIGHTER 6", },
   { index: "03", title: "MORTAL KOMBAT 1", },
   { index: "04", title: "2XKO" },
+  { index: "05", title: "FIFA" },
 ];
 
 const TEAMS_ROWS = [
   { index: "01", title: "Valquiria Esports", },
+  { index: "02", title: "Instituto Atletico Central Cordoba", },
 ];
 
 
@@ -56,6 +60,11 @@ export default function ResumePage({ src }) {
       <div className="resume-entry-mask" aria-hidden="true">
         <video className="resume-entry-video" src={src} autoPlay loop muted playsInline />
       </div>
+      
+      <button className={`back-arrow-btn${mounted ? " mounted" : ""}`} onClick={() => navigate(-1)}>
+        <span className="back-arrow-icon">◄</span>
+        <span className="back-arrow-text">VOLVER AL MENÚ</span>
+      </button>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&display=swap');
 
@@ -92,7 +101,7 @@ export default function ResumePage({ src }) {
 
         .resume-stack {
           position: absolute;
-          top: 9vh;
+          top: 11vh;
           left: 2.8vw;
           width: min(47vw, 720px);
           display: flex;
@@ -101,6 +110,44 @@ export default function ResumePage({ src }) {
           pointer-events: none;
           transform: scale(0.9);
           transform-origin: top left;
+        }
+
+        /* ── Back Arrow Button ── */
+        .back-arrow-btn {
+          position: absolute;
+          top: 4vh;
+          left: 3vw;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          pointer-events: all;
+          opacity: 0;
+          transform: translateX(-20px);
+          transition: opacity 0.4s ease, transform 0.4s ease, filter 0.2s ease;
+        }
+        .back-arrow-btn.mounted {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .back-arrow-btn:hover {
+          filter: brightness(1.5) drop-shadow(0 0 8px rgba(141, 246, 255, 0.6));
+        }
+        .back-arrow-icon {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 32px;
+          color: #c4001a;
+          line-height: 1;
+        }
+        .back-arrow-text {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 26px;
+          letter-spacing: 2px;
+          color: #fff;
+          line-height: 1;
         }
 
         .resume-list-tag {
@@ -260,7 +307,7 @@ export default function ResumePage({ src }) {
           top: 9.5vh;
           right: 4.5vw;
           width: min(39vw, 620px);
-          min-height: 74vh;
+          height: 80vh;
           z-index: 12;
           padding: 22px 24px 24px 24px;
           background: linear-gradient(180deg, rgba(15, 28, 105, 0.96) 0%, rgba(8, 16, 68, 0.97) 100%);
@@ -269,6 +316,8 @@ export default function ResumePage({ src }) {
             inset 0 0 0 1px rgba(133, 244, 255, 0.16),
             16px 16px 0 rgba(0, 6, 30, 0.55);
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
         }
         .resume-detail-panel::before {
           content: "";
@@ -280,6 +329,7 @@ export default function ResumePage({ src }) {
           pointer-events: none;
         }
         .resume-detail-top {
+          flex-shrink: 0;
           position: relative;
           display: grid;
           grid-template-columns: 70px 1fr auto;
@@ -315,6 +365,13 @@ export default function ResumePage({ src }) {
           flex-direction: column;
           gap: 10px;
           margin-top: 18px;
+          flex: 1;
+          overflow-y: auto;
+          overflow-x: hidden;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(140, 239, 255, 0.3) transparent;
+          padding-right: 8px;
+          padding-bottom: 20px;
         }
         .resume-detail-row {
           display: grid;

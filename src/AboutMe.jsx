@@ -96,6 +96,18 @@ export default function AboutMe() {
   return (
     <div id="menu-screen">
       <video src={bgVideo} autoPlay loop muted playsInline />
+      
+      <button 
+        className={`back-arrow-btn${mounted ? " mounted" : ""}`} 
+        onClick={() => {
+          if (revealed) setRevealed(false);
+          else navigate(-1);
+        }}
+      >
+        <span className="back-arrow-icon">◄</span>
+        <span className="back-arrow-text">{revealed ? "CERRAR INFO" : "VOLVER AL MENÚ"}</span>
+      </button>
+
       {revealed && <div key={`dim-${active}`} className="sc-dim" />}
       {revealed && (
         <div key={`panel-${active}`} className={`sc-reveal-panel${mounted ? " mounted" : ""}`}>
@@ -139,6 +151,44 @@ export default function AboutMe() {
           justify-content: center;
           gap: 6px;
           padding-left: 0;
+        }
+
+        /* ── Back Arrow Button ── */
+        .back-arrow-btn {
+          position: absolute;
+          top: 4vh;
+          left: 3vw;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          pointer-events: all;
+          opacity: 0;
+          transform: translateX(-20px);
+          transition: opacity 0.4s ease, transform 0.4s ease, filter 0.2s ease;
+        }
+        .back-arrow-btn.mounted {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .back-arrow-btn:hover {
+          filter: brightness(1.5) drop-shadow(0 0 8px rgba(141, 246, 255, 0.6));
+        }
+        .back-arrow-icon {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 32px;
+          color: #c4001a;
+          line-height: 1;
+        }
+        .back-arrow-text {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 26px;
+          letter-spacing: 2px;
+          color: #fff;
+          line-height: 1;
         }
 
         .sc-dim {

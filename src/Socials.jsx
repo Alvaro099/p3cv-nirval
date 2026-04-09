@@ -27,7 +27,7 @@ const ITEMS = [
     ],
   },
   {
-    id: "twitter", label: "TWITTER / X", handle: "@yourhandle", href: "https://x.com/N1rval099", icon: "📷", barIcon: icon2, bars: 1, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
+    id: "twitter", label: "TWITTER / X", handle: "@yourhandle", href: "https://x.com/N1rval099", icon: "🎮", barIcon: icon2, bars: 1, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
     links: ["x.com/N1rval099"],
     stats: [
       { tag: "FOL", value: "3.4K", color: "#e1306c" },
@@ -35,7 +35,7 @@ const ITEMS = [
     ],
   },
   {
-    id: "tiktok", label: "TIKTOK", handle: "@yourhandle", href: "https://www.tiktok.com/@nirval099", icon: "🎵", barIcon: icon3, bars: 1, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
+    id: "tiktok", label: "TIKTOK", handle: "@yourhandle", href: "https://www.tiktok.com/@nirval099", icon: "🎮", barIcon: icon3, bars: 1, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
     links: [
       "tiktok.com/@nirval099/video/7625644893003599111",
     ],
@@ -81,6 +81,12 @@ export default function Socials() {
   return (
     <div id="menu-screen">
       <video src={bgVideo} autoPlay loop muted playsInline />
+
+      <button className={`back-arrow-btn${mounted ? " mounted" : ""}`} onClick={() => navigate(-1)}>
+        <span className="back-arrow-icon">◄</span>
+        <span className="back-arrow-text">VOLVER AL MENÚ</span>
+      </button>
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,700;1,700&display=swap');
 
@@ -95,6 +101,44 @@ export default function Socials() {
           justify-content: center;
           gap: 6px;
           padding-left: 0;
+        }
+
+        /* ── Back Arrow Button ── */
+        .back-arrow-btn {
+          position: absolute;
+          top: 4vh;
+          left: 3vw;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          pointer-events: all;
+          opacity: 0;
+          transform: translateX(-20px);
+          transition: opacity 0.4s ease, transform 0.4s ease, filter 0.2s ease;
+        }
+        .back-arrow-btn.mounted {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .back-arrow-btn:hover {
+          filter: brightness(1.5) drop-shadow(0 0 8px rgba(141, 246, 255, 0.6));
+        }
+        .back-arrow-icon {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 32px;
+          color: #c4001a;
+          line-height: 1;
+        }
+        .back-arrow-text {
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 26px;
+          letter-spacing: 2px;
+          color: #fff;
+          line-height: 1;
         }
 
         /* ── Each bar ── */
