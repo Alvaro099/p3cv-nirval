@@ -1,9 +1,9 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-const menuVideo = 'src/assets/videocomprimido.mp4';
-const main1 = 'https://drive.google.com/uc?export=download&id=1uWTMWtl_xjF6jctAYIncMmUds6CD60-S';
-const main2 = 'https://drive.google.com/uc?export=download&id=1QUSqpIjkXbSCevfjXufLx5AeaXm1C7l3';
-const main3 = 'https://drive.google.com/uc?export=download&id=17VvQe6VdV52gQKuVR6NcnUC42GLcm4Hc';
+import menuVideo from './assets/videocomprimido.mp4';
+import main1 from './assets/main1.mp4';
+import main2 from './assets/main2.mp4';
+import main3 from './assets/main3.mp4';
 import P3Menu from './P3Menu'
 import VideoPage from './VideoPage'
 import ResumePage from './ResumePage'
