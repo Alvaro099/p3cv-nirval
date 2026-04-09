@@ -15,6 +15,7 @@ const EDUCATION_ROWS = [
   { index: "04", title: "RAGNAROK 2025", status: "Complete" },
   { index: "05", title: "DARK WINTER 2026", status: "Complete" },
   { index: "06", title: "TORNEOS SEMANALES EN VALQUIRIA", status: "In Progress" },
+  { index: "07", title: "PARTIDOS DE COPA DE IACC ESPORTS", status: "In Progress" },
 ];
 
 const GAMES_ROWS = [
@@ -60,7 +61,7 @@ export default function ResumePage({ src }) {
       <div className="resume-entry-mask" aria-hidden="true">
         <video className="resume-entry-video" src={src} autoPlay loop muted playsInline />
       </div>
-      
+
       <button className={`back-arrow-btn${mounted ? " mounted" : ""}`} onClick={() => navigate(-1)}>
         <span className="back-arrow-icon">◄</span>
         <span className="back-arrow-text">VOLVER AL MENÚ</span>
@@ -318,6 +319,7 @@ export default function ResumePage({ src }) {
           overflow: hidden;
           display: flex;
           flex-direction: column;
+          pointer-events: all;
         }
         .resume-detail-panel::before {
           content: "";

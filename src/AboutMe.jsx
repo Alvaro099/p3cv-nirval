@@ -110,7 +110,12 @@ export default function AboutMe() {
 
       {revealed && <div key={`dim-${active}`} className="sc-dim" />}
       {revealed && (
-        <div key={`panel-${active}`} className={`sc-reveal-panel${mounted ? " mounted" : ""}`}>
+        <div 
+          key={`panel-${active}`} 
+          className={`sc-reveal-panel${mounted ? " mounted" : ""}`}
+          style={{ pointerEvents: "all", cursor: "pointer" }}
+          onClick={() => setRevealed(false)}
+        >
           <div className="sc-reveal-upper-bar">
             {REVEAL_CONTENT[active].upper.map((line) => (
               <div className="sc-reveal-upper-line" key={line}>{line}</div>

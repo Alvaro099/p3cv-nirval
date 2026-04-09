@@ -9,10 +9,11 @@ import icon1 from "./assets/icon1.png";
 import icon2 from "./assets/icon2.png";
 import icon3 from "./assets/icon3.png";
 
-const CHARS = [char1, char2, char3];
+const CHARS = [char1, char2, char3, char2];
 
 const ROLES = [
   { text: "LEADER", color: "#e8c100", bg: "rgba(232,193,0,0.12)", border: "rgba(232,193,0,0.5)" },
+  { text: "PARTY", color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
   { text: "PARTY", color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
   { text: "PARTY", color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
 ];
@@ -44,6 +45,13 @@ const ITEMS = [
       { tag: "LKS", value: "52K", color: "#ff0050" },
     ],
   },
+  {
+    id: "gmail", label: "GMAIL", handle: "@yourhandle", href: "[EMAIL_ADDRESS]", icon: "📧", barIcon: icon3, bars: 0, newBars: [], counts: [], links: [],
+    stats: [
+      { tag: "FOL", value: "10K", color: "#00f2ea" },
+      { tag: "LKS", value: "66K", color: "#ff0050" },
+    ],
+  },
 ];
 
 export default function Socials() {
@@ -51,6 +59,9 @@ export default function Socials() {
   const [mounted, setMounted] = useState(false);
   const [activeInfoBar, setActiveInfoBar] = useState(0);
   const [focus, setFocus] = useState("left"); // "left" | "right"
+  const [showMailModal, setShowMailModal] = useState(false);
+  const [mailSubject, setMailSubject] = useState("");
+  const [mailBody, setMailBody] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -60,11 +71,19 @@ export default function Socials() {
 
   useEffect(() => {
     const onKey = (e) => {
+      if (showMailModal) {
+        if (e.key === "Escape") setShowMailModal(false);
+        return;
+      }
+      
       if (focus === "left") {
         if (e.key === "ArrowUp") setActive(i => Math.max(0, i - 1));
         if (e.key === "ArrowDown") setActive(i => Math.min(ITEMS.length - 1, i + 1));
         if (e.key === "ArrowRight") { setFocus("right"); setActiveInfoBar(0); }
-        if (e.key === "Enter") window.open(ITEMS[active].href, "_blank");
+        if (e.key === "Enter") {
+          if (ITEMS[active].id === "gmail") setShowMailModal(true);
+          else window.open(ITEMS[active].href, "_blank");
+        }
       } else {
         const barCount = ITEMS[active].bars;
         if (e.key === "ArrowUp") setActiveInfoBar(i => Math.max(0, i - 1));
@@ -102,6 +121,26 @@ export default function Socials() {
           gap: 6px;
           padding-left: 0;
         }
+
+        /* ── Modal de Correo ── */
+        .sc-mail-modal-bg {
+          position: fixed; inset: 0; z-index: 200; background: rgba(0, 6, 30, 0.88); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px);
+        }
+        @keyframes sc-msg-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .sc-mail-modal {
+          background: linear-gradient(180deg, rgba(15, 28, 105, 0.98) 0%, rgba(8, 16, 68, 1) 100%); clip-path: polygon(0 0, 100% 0, calc(100% - 28px) 100%, 0 100%); box-shadow: inset 0 0 0 1px rgba(133, 244, 255, 0.18), 20px 20px 0 rgba(0, 6, 30, 0.7); padding: 36px 44px 44px; width: min(520px, 90vw); animation: sc-msg-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both; position: relative; pointer-events: all;
+        }
+        .sc-mail-modal::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(133, 244, 255, 0.07) 0 14%, transparent 14%); pointer-events: none; }
+        .sc-mail-modal-title { font-family: 'Anton', sans-serif; font-size: 42px; line-height: 0.92; letter-spacing: 1px; color: #edfaff; margin-bottom: 2px; }
+        .sc-mail-modal-sub { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: #94f4ff; margin-bottom: 24px; }
+        .sc-mail-modal-label { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: #94f4ff; margin-bottom: 8px; display: block; }
+        .sc-mail-modal-input, .sc-mail-modal-textarea { width: 100%; background: rgba(8, 18, 72, 0.97); border: 1px solid rgba(140, 239, 255, 0.3); color: #edfaff; font-family: 'Inter', sans-serif; font-size: 16px; padding: 12px 18px; outline: none; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%); margin-bottom: 20px; box-sizing: border-box; transition: border-color 0.18s; resize: none; }
+        .sc-mail-modal-input:focus, .sc-mail-modal-textarea:focus { border-color: rgba(140, 239, 255, 0.7); }
+        .sc-mail-modal-row { display: flex; gap: 12px; }
+        .sc-mail-modal-btn { font-family: 'Anton', sans-serif; font-size: 20px; letter-spacing: 1px; color: #041238; background: #8df6ff; border: none; padding: 10px 28px; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%); cursor: pointer; transition: background 0.18s, transform 0.18s, box-shadow 0.18s; }
+        .sc-mail-modal-btn:hover { background: #ffffff; transform: translateX(4px); box-shadow: 8px 6px 0 rgba(214, 50, 50, 0.75); }
+        .sc-mail-modal-btn-alt { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: #94f4ff; background: transparent; border: 1px solid rgba(140, 239, 255, 0.25); padding: 8px 20px; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); cursor: pointer; transition: background 0.18s, color 0.18s; }
+        .sc-mail-modal-btn-alt:hover { background: rgba(133, 244, 255, 0.12); color: #edfaff; }
 
         /* ── Back Arrow Button ── */
         .back-arrow-btn {
@@ -568,8 +607,14 @@ export default function Socials() {
             key={item.id}
             className={`sc-bar-outer${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
             onClick={() => {
-              if (active === i) window.open(item.href, "_blank");
-              else setActive(i);
+              if (active === i) {
+                if (item.id === "gmail") setShowMailModal(true);
+                else window.open(item.href, "_blank");
+              }
+              else {
+                setActive(i);
+                setFocus("left");
+              }
             }}
             onMouseEnter={() => setActive(i)}
           >
@@ -616,7 +661,7 @@ export default function Socials() {
         </div>
       )}
 
-      {mounted && Array.from({ length: ITEMS[active].bars }).map((_, i) => (
+      {mounted && Array.from({ length: ITEMS[active].bars || 0 }).map((_, i) => (
         <div
           className={`sc-info-bar-wrap${activeInfoBar === i ? " selected" : ""}`}
           key={`bar-${active}-${i}`}
@@ -624,17 +669,65 @@ export default function Socials() {
           onClick={() => setActiveInfoBar(i)}
           onMouseEnter={() => setActiveInfoBar(i)}
         >
-          {ITEMS[active].newBars.includes(i) && (
+          {ITEMS[active].newBars && ITEMS[active].newBars.includes(i) && (
             <img className="sc-info-bar-new" src={newsign} alt="" />
           )}
           <div className="sc-info-bar">
             <img className="sc-info-bar-icon" src={ITEMS[active].barIcon} alt="" />
-            <span className="sc-info-bar-text">{ITEMS[active].links[i].slice(0, 10)}...</span>
+            <span className="sc-info-bar-text">{(ITEMS[active].links && ITEMS[active].links[i]) ? ITEMS[active].links[i].slice(0, 10) : ""}...</span>
             <span className="sc-info-bar-box">VIEWS</span>
-            <span className="sc-info-bar-count">{ITEMS[active].counts[i]}</span>
+            <span className="sc-info-bar-count">{(ITEMS[active].counts && ITEMS[active].counts[i]) ? ITEMS[active].counts[i] : ""}</span>
           </div>
         </div>
       ))}
+
+      {/* ── Modal de Correo ── */}
+      {showMailModal && (
+        <div className="sc-mail-modal-bg">
+          <div className="sc-mail-modal">
+            <div className="sc-mail-modal-title">REDACTAR</div>
+            <div className="sc-mail-modal-sub">NUEVO MENSAJE PARA NIRVAL</div>
+            
+            <label className="sc-mail-modal-label">ASUNTO</label>
+            <input
+              className="sc-mail-modal-input"
+              value={mailSubject}
+              onChange={(e) => setMailSubject(e.target.value)}
+              placeholder="Escribe el asunto aquí..."
+              autoFocus
+            />
+
+            <label className="sc-mail-modal-label">MENSAJE</label>
+            <textarea
+              className="sc-mail-modal-textarea"
+              value={mailBody}
+              onChange={(e) => setMailBody(e.target.value)}
+              placeholder="¡Hola Nirval! Quería decirte que..."
+              rows={4}
+            />
+
+            <div className="sc-mail-modal-row">
+              <button 
+                className="sc-mail-modal-btn" 
+                onClick={() => {
+                  window.location.href = `mailto:soiialvaro@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+                  setShowMailModal(false);
+                  setMailSubject("");
+                  setMailBody("");
+                }}
+              >
+                ENVIAR EMAIL
+              </button>
+              <button
+                className="sc-mail-modal-btn-alt"
+                onClick={() => setShowMailModal(false)}
+              >
+                CANCELAR
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className={`sc-footer${mounted ? " mounted" : ""}`}>
         <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECCION</span></div>
