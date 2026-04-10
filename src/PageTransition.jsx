@@ -47,6 +47,7 @@ function AboutTransition() {
         clipPath: "polygon(0 0, 100% 0, calc(100% - 120px) 100%, 0 100%)",
         transform: "rotate(-18deg)",
         transformOrigin: "left center",
+        pointerEvents: "none",
       }}
       initial={{ x: -500, opacity: 0 }}
       animate={{ x: [-500, 20, 0], opacity: [1, 1, 0] }}

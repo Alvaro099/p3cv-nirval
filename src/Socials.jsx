@@ -20,25 +20,36 @@ const ROLES = [
 
 const ITEMS = [
   {
-    id: "youtube", label: "YOUTUBE", handle: "@yourname", href: "https://www.youtube.com/@nirval099", icon: "🎮", barIcon: icon1, bars: 1, newBars: [0], counts: ["56"],
-    links: ["https://www.youtube.com/shorts/Nyl3s4i8-Gk"],
+    id: "youtube", label: "YOUTUBE", handle: "@yourname", href: "https://www.youtube.com/@nirval099", icon: "🎮", barIcon: icon1, bars: 5, newBars: [0], counts: ["1,3k", "1,2k", "991", "1,6k", "781"],
+    links: ["youtube.com/shorts/Nyl3s4i8-Gk", "youtube.com/shorts/kGwnbRPDAM8",
+      "youtube.com/shorts/7hi7VNbJpSg", "youtube.com/shorts/vI7V8WHYoiM", "youtube.com/shorts/2t5RRBDnVVA"],
     stats: [
       { tag: "FOL", value: "1.2K", color: "#9147ff" },
       { tag: "VWR", value: "042", color: "#bf94ff" },
     ],
   },
   {
-    id: "twitter", label: "TWITTER / X", handle: "@yourhandle", href: "https://x.com/N1rval099", icon: "🎮", barIcon: icon2, bars: 1, newBars: [1, 2], counts: ["3.4M", "2.5M", "676K", "412K", "198K"],
-    links: ["x.com/N1rval099"],
+    id: "twitter", label: "TWITTER / X", handle: "@yourhandle", href: "https://x.com/N1rval099", icon: "🎮", barIcon: icon2, bars: 5, newBars: [0], counts: ["8.5k", "4.2k", "3k", "1.2k", "950"],
+    links: [
+      "x.com/N1rval099/status/2042419113239130287",
+      "x.com/N1rval099/status/2042419113239130287",
+      "x.com/N1rval099/status/1964586161604874591",
+      "x.com/N1rval099/status/2031802524098052115",
+
+    ],
     stats: [
       { tag: "FOL", value: "3.4K", color: "#e1306c" },
       { tag: "PST", value: "128", color: "#f77737" },
     ],
   },
   {
-    id: "tiktok", label: "TIKTOK", handle: "@yourhandle", href: "https://www.tiktok.com/@nirval099", icon: "🎮", barIcon: icon3, bars: 1, newBars: [0, 3, 5, 6], counts: ["5.1M", "3.7M", "2.2M", "1.4M", "831K", "490K", "217K"],
+    id: "tiktok", label: "TIKTOK", handle: "@yourhandle", href: "https://www.tiktok.com/@nirval099", icon: "🎮", barIcon: icon3, bars: 4, newBars: [0, 3, 5, 6], counts: ["5.1k", "3.7k", "2.2k", "1.4k", "831k", "490k", "217k"],
     links: [
       "tiktok.com/@nirval099/video/7625644893003599111",
+      "tiktok.com/@nirval099/video/7596220967668518200",
+      "tiktok.com/@nirval099/video/7587408602336464184",
+      "tiktok.com/@nirval099/video/7587408312946167052"
+
     ],
     stats: [
       { tag: "FOL", value: "8.9K", color: "#00f2ea" },
@@ -75,7 +86,7 @@ export default function Socials() {
         if (e.key === "Escape") setShowMailModal(false);
         return;
       }
-      
+
       if (focus === "left") {
         if (e.key === "ArrowUp") setActive(i => Math.max(0, i - 1));
         if (e.key === "ArrowDown") setActive(i => Math.min(ITEMS.length - 1, i + 1));
@@ -89,7 +100,10 @@ export default function Socials() {
         if (e.key === "ArrowUp") setActiveInfoBar(i => Math.max(0, i - 1));
         if (e.key === "ArrowDown") setActiveInfoBar(i => Math.min(barCount - 1, i + 1));
         if (e.key === "ArrowLeft") setFocus("left");
-        if (e.key === "Enter") window.open("https://" + ITEMS[active].links[activeInfoBar], "_blank");
+        if (e.key === "Enter") {
+          const link = ITEMS[active].links[activeInfoBar];
+          if (link) window.open(link.startsWith('http') ? link : 'https://' + link, '_blank');
+        }
       }
       if ((e.key === "ArrowLeft" && focus === "left") || e.key === "Escape" || e.key === "Backspace") navigate(-1);
     };
@@ -666,7 +680,11 @@ export default function Socials() {
           className={`sc-info-bar-wrap${activeInfoBar === i ? " selected" : ""}`}
           key={`bar-${active}-${i}`}
           style={{ top: `${155 + i * 52}px`, animationDelay: `${i * 50}ms` }}
-          onClick={() => setActiveInfoBar(i)}
+          onClick={() => {
+            setActiveInfoBar(i);
+            const link = ITEMS[active].links && ITEMS[active].links[i];
+            if (link) window.open(link.startsWith('http') ? link : 'https://' + link, '_blank');
+          }}
           onMouseEnter={() => setActiveInfoBar(i)}
         >
           {ITEMS[active].newBars && ITEMS[active].newBars.includes(i) && (
@@ -687,7 +705,7 @@ export default function Socials() {
           <div className="sc-mail-modal">
             <div className="sc-mail-modal-title">REDACTAR</div>
             <div className="sc-mail-modal-sub">NUEVO MENSAJE PARA NIRVAL</div>
-            
+
             <label className="sc-mail-modal-label">ASUNTO</label>
             <input
               className="sc-mail-modal-input"
@@ -707,8 +725,8 @@ export default function Socials() {
             />
 
             <div className="sc-mail-modal-row">
-              <button 
-                className="sc-mail-modal-btn" 
+              <button
+                className="sc-mail-modal-btn"
                 onClick={() => {
                   window.location.href = `mailto:soiialvaro@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
                   setShowMailModal(false);

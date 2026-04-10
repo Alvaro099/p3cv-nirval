@@ -669,6 +669,7 @@ export default function AboutMe() {
             className={`sc-bar-outer${active === i ? " active" : ""}${mounted ? " mounted" : ""}`}
             onClick={() => {
               setActive(i);
+              setRevealed(true);
             }}
             onMouseEnter={() => {
               setActive(i);
