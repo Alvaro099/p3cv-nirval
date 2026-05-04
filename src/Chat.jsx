@@ -489,6 +489,46 @@ export default function Chat() {
         }
         .chat-send:disabled { opacity: 0.45; cursor: not-allowed; }
 
+        .proyect-button {
+          font-family: 'Anton', sans-serif;
+          font-size: 22px;
+          width: 100%;
+          letter-spacing: 1px;
+          margin-top : 10px;
+          margin-bottom : 10px;
+          color: #ffffffff;
+          background: #1563f5ff;
+          border: none;
+          padding: 0 28px;
+          clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+          cursor: pointer;
+          transition: background 0.18s, transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+        }
+        .proyect-button:hover:not(:disabled) {
+          background: #0342b8ff;
+          transform: translateX(4px);
+          box-shadow: 8px 6px 0 rgba(214, 50, 50, 0.75);
+        }
+
+        .news-button {
+          font-family: 'Anton', sans-serif;
+          font-size: 22px;
+          width: 100%;
+          letter-spacing: 1px;
+          color: #ffffffff;
+          background: #1563f5ff;
+          border: none;
+          padding: 0 28px;
+          clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+          cursor: pointer;
+          transition: background 0.18s, transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+        }
+        .news-button:hover:not(:disabled) {
+          background: #0342b8ff;
+          transform: translateX(4px);
+          box-shadow: 8px 6px 0 rgba(214, 50, 50, 0.75);
+        }
+
         /* ── Back hint ── */
         .chat-back-hint {
           position: absolute;
@@ -619,6 +659,27 @@ export default function Chat() {
           background: rgba(133, 244, 255, 0.12);
           color: #edfaff;
         }
+
+        /* ── Makoto Walk Animation ── */
+        .makoto-walk-container {
+          width: 100%;
+          overflow: hidden;
+          position: relative;
+          height: 100px;
+          margin-top: 16px;
+          border-bottom: 1px solid rgba(133, 244, 255, 0.16);
+        }
+        .makoto-walk-img {
+          width: 100px;
+          height: 100px;
+          position: absolute;
+          top: 0;
+          animation: walk-right 6s linear infinite;
+        }
+        @keyframes walk-right {
+          0% { left: -100px; }
+          100% { left: 100%; }
+        }
       `}</style>
 
       {/* Background */}
@@ -678,16 +739,60 @@ export default function Chat() {
         <div className={`chat-column-placeholder${mounted ? " mounted" : ""}`}>
           <div className="chat-column-title">SECCION DE NOTICIAS</div>
           <div className="chat-column-content-hint">
-            [ Queda por ver como traer la info mas relevante con respecto al fighting ]
+            [ Donde leo lo ultimo sobre cada juego que me gusta! ]
           </div>
+          <div className="chat-column-title">NOTICIAS 2XKO</div>
+          <a href="https://x.com/2XKOIntel" target="_blank" rel="noopener noreferrer">
+            <button className="news-button">
+              Click!
+            </button>
+          </a>
+          <div className="chat-column-title">NOTICIAS TEKKEN 8</div>
+          <a href="https://x.com/TEKKEN" target="_blank" rel="noopener noreferrer">
+            <button className="news-button">
+              Click!
+            </button>
+          </a>
+          <div className="chat-column-title">NOTICIAS STREET FIGHTER</div>
+          <a href="https://x.com/StreetFighter" target="_blank" rel="noopener noreferrer">
+            <button className="news-button">
+              Click!
+            </button>
+          </a>
+          <div className="chat-column-title">NOTICIAS FGS</div>
+          <a href="https://x.com/FGC_Daily" target="_blank" rel="noopener noreferrer">
+            <button className="news-button">
+              Click!
+            </button>
+          </a>
         </div>
 
         {/* Columna 2: Textos o Imágenes */}
         <div className={`chat-column-placeholder${mounted ? " mounted" : ""}`} style={{ transitionDelay: "0.4s" }}>
           <div className="chat-column-title">COSAS QUE ME GUSTAN</div>
           <div className="chat-column-content-hint">
-            [ Pensamientos mañosos y cosas que me gustan ]
+            [ una makoto caminando ]
+            <div className="makoto-walk-container">
+              <img className="makoto-walk-img" src="src\assets\makotowalk.gif" alt="Makoto walking" />
+            </div>
           </div>
+          <div className="chat-column-title">MIS PROYECTOS DE GIT HUB</div>
+          <a href="https://combomaker-ecru.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <button className="proyect-button">
+              Proyecto - Combo Maker
+            </button>
+          </a>
+          <a href="https://versushighligts-main.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <button className="proyect-button">
+              Proyecto - Versus Highligts
+            </button>
+          </a>
+          <a href="https://pf-ab.vercel.app/" target="_blank" rel="noopener noreferrer">
+            <button className="proyect-button">
+              Mi curriculum serio
+            </button>
+          </a>
+
         </div>
 
         {/* Columna 3: El Chat */}
@@ -797,13 +902,14 @@ export default function Chat() {
             </button>
           </form>
         </div>
-      </div>
+      </div >
 
       {/* Back hint */}
-      <div className={`chat-back-hint${mounted ? " mounted" : ""}`}>
+      < div className={`chat-back-hint${mounted ? " mounted" : ""}`
+      }>
         <span className="chat-back-hint-key">ESC</span>
         <span>VOLVER</span>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
