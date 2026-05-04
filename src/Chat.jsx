@@ -10,10 +10,12 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "./firebase";
+import makotowalk from "./assets/makotowalk.gif";
 
 const MESSAGES_COLLECTION = "chat_messages";
 const MAX_MESSAGES = 80;
 const NAME_KEY = "p3_chat_username";
+const Makoto = "./assets/makotowalk.gif";
 
 // ─── Utilidades ──────────────────────────────────────────────
 const adjectives = ["JIJO", "EMO", "NOSE", "ALEATORIO", "FURIOSO", "MÍSTICO", "OSCURO", "LUNAR"];
@@ -773,7 +775,7 @@ export default function Chat() {
           <div className="chat-column-content-hint">
             [ una makoto caminando ]
             <div className="makoto-walk-container">
-              <img className="makoto-walk-img" src="src\assets\makotowalk.gif" alt="Makoto walking" />
+              <img className="makoto-walk-img" src={makotowalk} alt="Makoto walking" />
             </div>
           </div>
           <div className="chat-column-title">MIS PROYECTOS DE GIT HUB</div>
