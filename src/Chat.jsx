@@ -83,6 +83,10 @@ export default function Chat() {
 
   // ── Listener Firestore ───────────────────────────────────────
   useEffect(() => {
+    if (!db) {
+      setFirebaseError(true);
+      return;
+    }
     let unsubscribe = () => { };
     try {
       const q = query(
@@ -118,7 +122,7 @@ export default function Chat() {
   // ── Enviar mensaje ───────────────────────────────────────────
   const sendMessage = useCallback(async () => {
     const text = input.trim();
-    if (!text || sending || !username) return;
+    if (!text || sending || !username || !db) return;
     setSending(true);
     setInput("");
     try {

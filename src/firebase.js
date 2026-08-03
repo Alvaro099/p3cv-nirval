@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -10,6 +10,21 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+let db = null;
+
+try {
+  if (firebaseConfig.apiKey && firebaseConfig.projectId) {
+    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    db = getFirestore(app);
+  } else {
+    console.warn(
+      "Firebase configuration environment variables are missing. Please configure VITE_FIREBASE_* variables in Vercel."
+    );
+  }
+} catch (error) {
+  console.error("Error initializing Firebase App:", error);
+}
+
+export { db };
+
 
