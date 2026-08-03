@@ -58,7 +58,7 @@ const ITEMS = [
     ],
   },
   {
-    id: "gmail", label: "GMAIL", handle: "@yourhandle", href: "[EMAIL_ADDRESS]", icon: "📧", barIcon: icon3, bars: 0, newBars: [], counts: [], links: [],
+    id: "gmail", label: "GMAIL", handle: "@yourhandle", href: "soiialvaro@gmail.com", icon: "📧", barIcon: icon3, bars: 0, newBars: [], counts: [], links: [],
     stats: [
       { tag: "FOL", value: "10K", color: "#00f2ea" },
       { tag: "LKS", value: "66K", color: "#ff0050" },
