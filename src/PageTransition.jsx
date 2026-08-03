@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
-const defaultBlocks = ["#0d1a3a", "#1a6aff", "#7dd4fc"];
+const defaultBlocks = ["#29090d", "#a61020", "#ffd0d0"];
 
 function DefaultTransition() {
   return defaultBlocks.map((color, i) => (
@@ -28,8 +28,8 @@ function DefaultTransition() {
 
 function AboutTransition() {
   const panels = [
-    { color: "#00184c", top: "-12vh", left: "-18vw", width: "86vw", delay: 0 },
-    { color: "#53edff", top: "24vh", left: "-10vw", width: "72vw", delay: 0.05 },
+    { color: "#1b0a0f", top: "-12vh", left: "-18vw", width: "86vw", delay: 0 },
+    { color: "#ff8a8a", top: "24vh", left: "-10vw", width: "72vw", delay: 0.05 },
     { color: "#ffffff", top: "58vh", left: "-14vw", width: "82vw", delay: 0.1 },
   ];
 
@@ -64,8 +64,8 @@ function AboutTransition() {
 
 function SocialsTransition() {
   const stripes = [
-    { color: "#00184c", left: "72vw", width: "24vw", delay: 0 },
-    { color: "#00dff7", left: "80vw", width: "14vw", delay: 0.06 },
+    { color: "#1b0a0f", left: "72vw", width: "24vw", delay: 0 },
+    { color: "#ff6969", left: "80vw", width: "14vw", delay: 0.06 },
     { color: "#ffffff", left: "88vw", width: "8vw", delay: 0.12 },
   ];
 
@@ -97,8 +97,8 @@ function SocialsTransition() {
 
 function ChatTransition() {
   const bubbles = [
-    { color: "#0f1760", left: "-8vw", delay: 0 },
-    { color: "#7ff6ff", left: "-2vw", delay: 0.06 },
+    { color: "#1a090d", left: "-8vw", delay: 0 },
+    { color: "#ff7c7c", left: "-2vw", delay: 0.06 },
     { color: "#ffffff", left: "4vw", delay: 0.12 },
   ];
 
@@ -139,10 +139,10 @@ function TransitionOverlay({ variant }) {
 
 function ResumeTransition() {
   const cards = [
-    { top: "14vh", color: "#0f1760", delay: 0 },
-    { top: "31vh", color: "#7ff6ff", delay: 0.05 },
+    { top: "14vh", color: "#1a090d", delay: 0 },
+    { top: "31vh", color: "#ff8d8d", delay: 0.05 },
     { top: "48vh", color: "#ffffff", delay: 0.1 },
-    { top: "65vh", color: "#0f1760", delay: 0.15 },
+    { top: "65vh", color: "#1a090d", delay: 0.15 },
   ];
 
   return cards.map((card, i) => (

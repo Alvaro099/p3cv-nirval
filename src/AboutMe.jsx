@@ -1,23 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import char1 from "./assets/char1.png";
-import char2 from "./assets/char2.png";
-import char3 from "./assets/char3.png";
-import bgVideo from "./assets/main1.mp4";
-import icon1 from "./assets/icon1.png";
-import icon2 from "./assets/icon2.png";
-import icon3 from "./assets/icon3.png";
-import mainm from "./assets/mainm.jpeg";
-import mainm2 from "./assets/mainm2.jpeg";
-import mainf from "./assets/mainf.jpeg";
+import char1 from "./assets/about1.webp";
+import char2 from "./assets/about2.png";
+import char3 from "./assets/about3.webp";
+import bgVideo from "./assets/aboutmemenu.mp4";
+import icon1 from "./assets/socialicon.png";
+import icon2 from "./assets/socialicon.png";
+import icon3 from "./assets/socialicon.png";
 
 const CHARS = [char1, char2, char3];
-const MAIN_IMAGES = [mainm, mainm2, mainf];
 
 const REVEAL_CONTENT = [
   {
     upper: ["nombre : Nirval", "edad:27", "TEKKEN 8 , 2XKO , MORTAL KOMBAT , STREET FIGHTER 6"],
-    lower: "CASTER DE FIGHTING GAMES",
+    lower: "RELATOR DE FIGHTING GAMES",
   },
   {
     upper: [
@@ -34,9 +30,9 @@ const REVEAL_CONTENT = [
 ];
 
 const ROLES = [
-  { text: "LEADER", color: "#e8c100", bg: "rgba(232,193,0,0.12)", border: "rgba(232,193,0,0.5)" },
-  { text: "PARTY", color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
-  { text: "PARTY", color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
+  { text: "LIU", color: "#e8c100", bg: "rgba(232,193,0,0.12)", border: "rgba(232,193,0,0.5)" },
+  { text: "SCORPION", color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
+  { text: "SUB-ZERO", color: "#4a8fff", bg: "rgba(74,143,255,0.12)", border: "rgba(74,143,255,0.5)" },
 ];
 
 const ITEMS = [
@@ -96,9 +92,9 @@ export default function AboutMe() {
   return (
     <div id="menu-screen" className="aboutme-page">
       <video src={bgVideo} autoPlay loop muted playsInline />
-      
-      <button 
-        className={`back-arrow-btn${mounted ? " mounted" : ""}`} 
+
+      <button
+        className={`back-arrow-btn${mounted ? " mounted" : ""}`}
         onClick={() => {
           if (revealed) setRevealed(false);
           else navigate(-1);
@@ -110,8 +106,8 @@ export default function AboutMe() {
 
       {revealed && <div key={`dim-${active}`} className="sc-dim" />}
       {revealed && (
-        <div 
-          key={`panel-${active}`} 
+        <div
+          key={`panel-${active}`}
           className={`sc-reveal-panel${mounted ? " mounted" : ""}`}
           style={{ pointerEvents: "all", cursor: "pointer" }}
           onClick={() => setRevealed(false)}
@@ -127,19 +123,10 @@ export default function AboutMe() {
       {revealed && (
         <div key={`nav-${active}`} className="sc-right-nav">
           <span className="sc-nav-arrow left">◄</span>
-          <span className="sc-nav-btn">LB</span>
+          <span className="sc-nav-btn">L1</span>
           <span className="sc-nav-dot" />
-          <span className="sc-nav-btn">RB</span>
+          <span className="sc-nav-btn">R1</span>
           <span className="sc-nav-arrow right">►</span>
-        </div>
-      )}
-      {revealed && (
-        <div key={`portrait-${active}`} className={`sc-main-portrait-shell${mounted ? " mounted" : ""}`}>
-          <img
-            className="sc-main-portrait"
-            src={MAIN_IMAGES[active]}
-            alt=""
-          />
         </div>
       )}
 
