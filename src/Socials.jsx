@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm, ValidationError } from "@formspree/react";
 import char1 from "./assets/social1.webp";
 import char2 from "./assets/social2.webp";
 import char3 from "./assets/social3.webp";
@@ -66,14 +67,95 @@ const ITEMS = [
   },
 ];
 
+function MailModal({ onClose }) {
+  const [state, handleSubmit] = useForm("xjybnybz");
+
+  return (
+    <div className="sc-mail-modal-bg" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="sc-mail-modal">
+        <div className="sc-mail-modal-title">REDACTAR</div>
+        <div className="sc-mail-modal-sub">NUEVO MENSAJE PARA NIRVAL</div>
+
+        {state.succeeded ? (
+          <div style={{ padding: "10px 0", animation: "sc-msg-in 0.3s ease" }}>
+            <p style={{ color: "#ffffff", fontFamily: "'Bebas Neue', sans-serif", fontSize: "24px", letterSpacing: "1px", marginBottom: "20px" }}>
+              ¡GRACIAS! TU MENSAJE HA SIDO ENVIADO A NIRVAL CON ÉXITO.
+            </p>
+            <button className="sc-mail-modal-btn" onClick={onClose} autoFocus>
+              CERRAR
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <label className="sc-mail-modal-label" htmlFor="email">TU EMAIL</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              required
+              className="sc-mail-modal-input"
+              placeholder="tu@email.com"
+              autoFocus
+            />
+            <ValidationError prefix="Email" field="email" errors={state.errors} className="sc-mail-modal-error" />
+
+            <label className="sc-mail-modal-label" htmlFor="subject">ASUNTO</label>
+            <input
+              id="subject"
+              type="text"
+              name="subject"
+              className="sc-mail-modal-input"
+              placeholder="Escribe el asunto aquí..."
+            />
+            <ValidationError prefix="Asunto" field="subject" errors={state.errors} className="sc-mail-modal-error" />
+
+            <label className="sc-mail-modal-label" htmlFor="message">MENSAJE</label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              className="sc-mail-modal-textarea"
+              placeholder="¡Hola Nirval! Quería decirte que..."
+              rows={4}
+            />
+            <ValidationError prefix="Mensaje" field="message" errors={state.errors} className="sc-mail-modal-error" />
+
+            {state.errors && state.errors.getFormErrors && state.errors.getFormErrors().length > 0 && (
+              <div className="sc-mail-modal-error">
+                Ocurrió un error al enviar el formulario. Por favor, reintenta.
+              </div>
+            )}
+
+            <div className="sc-mail-modal-row">
+              <button
+                type="submit"
+                disabled={state.submitting}
+                className="sc-mail-modal-btn"
+                style={{ opacity: state.submitting ? 0.6 : 1, cursor: state.submitting ? "not-allowed" : "pointer" }}
+              >
+                {state.submitting ? "ENVIANDO..." : "ENVIAR EMAIL"}
+              </button>
+              <button
+                type="button"
+                className="sc-mail-modal-btn-alt"
+                onClick={onClose}
+              >
+                CANCELAR
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function Socials() {
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [activeInfoBar, setActiveInfoBar] = useState(0);
   const [focus, setFocus] = useState("left"); // "left" | "right"
   const [showMailModal, setShowMailModal] = useState(false);
-  const [mailSubject, setMailSubject] = useState("");
-  const [mailBody, setMailBody] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -205,53 +287,9 @@ export default function Socials() {
         </div>
       ))}
 
-      {/* ── Modal de Correo ── */}
-      {showMailModal && (
-        <div className="sc-mail-modal-bg">
-          <div className="sc-mail-modal">
-            <div className="sc-mail-modal-title">REDACTAR</div>
-            <div className="sc-mail-modal-sub">NUEVO MENSAJE PARA NIRVAL</div>
+      {/* ── Modal de Correo (Formspree) ── */}
+      {showMailModal && <MailModal onClose={() => setShowMailModal(false)} />}
 
-            <label className="sc-mail-modal-label">ASUNTO</label>
-            <input
-              className="sc-mail-modal-input"
-              value={mailSubject}
-              onChange={(e) => setMailSubject(e.target.value)}
-              placeholder="Escribe el asunto aquí..."
-              autoFocus
-            />
-
-            <label className="sc-mail-modal-label">MENSAJE</label>
-            <textarea
-              className="sc-mail-modal-textarea"
-              value={mailBody}
-              onChange={(e) => setMailBody(e.target.value)}
-              placeholder="¡Hola Nirval! Quería decirte que..."
-              rows={4}
-            />
-
-            <div className="sc-mail-modal-row">
-              <button
-                className="sc-mail-modal-btn"
-                onClick={() => {
-                  window.location.href = `mailto:soiialvaro@gmail.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
-                  setShowMailModal(false);
-                  setMailSubject("");
-                  setMailBody("");
-                }}
-              >
-                ENVIAR EMAIL
-              </button>
-              <button
-                className="sc-mail-modal-btn-alt"
-                onClick={() => setShowMailModal(false)}
-              >
-                CANCELAR
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       <div className={`sc-footer${mounted ? " mounted" : ""}`}>
         <div className="sc-footer-row"><span className="sc-footer-key">↑↓</span><span>SELECCION</span></div>

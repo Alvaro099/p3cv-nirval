@@ -1124,6 +1124,7 @@ body {
 .sc-mail-modal-btn:hover { background: #ff4848; transform: translateX(4px); box-shadow: 8px 6px 0 rgba(255, 255, 255, 0.2); }
 .sc-mail-modal-btn-alt { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 2px; color: #fff; background: transparent; border: 1px solid rgba(255, 255, 255, 0.35); padding: 8px 20px; clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%); cursor: pointer; transition: background 0.18s, color 0.18s; }
 .sc-mail-modal-btn-alt:hover { background: rgba(255, 72, 72, 0.12); color: #ffffff; }
+.sc-mail-modal-error { color: #ff4848; font-family: 'Inter', sans-serif; font-size: 14px; margin-top: -14px; margin-bottom: 14px; display: block; }
 
 .socials-page .sc-right-nav {
   position: fixed;
