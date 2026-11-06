@@ -16,6 +16,7 @@ const EVENTS_ROWS = [
   { index: "06", title: "TORNEOS SEMANALES EN VALQUIRIA", status: "In Progress" },
   { index: "07", title: "PARTIDOS DE COPA DE IACC ESPORTS", status: "In Progress" },
   { index: "08", title: "RAGNAROK 2024", status: "Complete" },
+  { index: "09", title: "RAGNAROK 2026", status: "Complete" },
 ];
 
 const GAMES_ROWS = [
@@ -26,12 +27,14 @@ const GAMES_ROWS = [
   { index: "05", title: "FIFA" },
   { index: "06", title: "Avatar Legends: The Fighting Game" },
   { index: "07", title: "Marvel Tōkon: Fighting Souls" },
+  { index: "08", title: "VALORANT" },
 ];
 
 const TEAMS_ROWS = [
   { index: "01", title: "Valquiria Esports", url: "https://www.youtube.com/@ValquiriaeSportsArgentina" },
   { index: "02", title: "Instituto Atletico Central Cordoba", url: "https://www.youtube.com/@InstitutoACC/streams" },
   { index: "03", title: "Mexican Mash Series", url: "https://www.youtube.com/@mexicanmashseries" },
+  { index: "04", title: "Nuvy Community", url: "https://www.twitch.tv/nuvy_community" },
 ];
 
 export default function ResumePage({ src }) {

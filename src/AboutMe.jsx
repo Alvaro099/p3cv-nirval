@@ -12,20 +12,20 @@ const CHARS = [char1, char2, char3];
 
 const REVEAL_CONTENT = [
   {
-    upper: ["nombre : Nirval", "edad:27", "TEKKEN 8 , 2XKO , MORTAL KOMBAT , STREET FIGHTER 6"],
-    lower: "RELATOR DE FIGHTING GAMES",
+    upper: ["nombre : Nirval", "edad:27", "TEKKEN 8 , 2XKO , MORTAL KOMBAT , STREET FIGHTER 6, AVATAR LEGENDS"],
+    lower: "RELATOR DE FIGHTING GAMES / TO",
   },
   {
     upper: [
       "jpop , jrock , metal , hiperpop , pop, punk , postpunk",
     ],
-    lower: "Bajista por diversion",
+    lower: "Bajista por diversion, subo covers a veces asi que veanlos.",
   },
   {
     upper: [
       "Los invito a agregarme a steam (? : N1rval",
     ],
-    lower: "seria raro no poner persona",
+    lower: "Fanatico de los FGs, mi saga favorita es Mortal Kombat pero le agarre amor a TEKKEN. Desde chico me criaron los RTS como Starcraft y Age of Empire. Mi primer consola fue un Sega genesis",
   },
 ];
 
