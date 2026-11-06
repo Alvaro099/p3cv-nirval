@@ -17,6 +17,7 @@ const EVENTS_ROWS = [
   { index: "07", title: "PARTIDOS DE COPA DE IACC ESPORTS", status: "In Progress" },
   { index: "08", title: "RAGNAROK 2024", status: "Complete" },
   { index: "09", title: "RAGNAROK 2026", status: "Complete" },
+  { index: "10", title: "NUVY Ignite", status: "Complete" },
 ];
 
 const GAMES_ROWS = [
