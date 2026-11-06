@@ -23,9 +23,9 @@ const REVEAL_CONTENT = [
   },
   {
     upper: [
-      "Los invito a agregarme a steam (? : N1rval",
+      "Fanatico de los FGs, mi saga favorita es Mortal Kombat pero le agarre amor a TEKKEN. Desde chico me criaron los RTS como Starcraft y Age of Empire. Mi primer consola fue un Sega genesis",
     ],
-    lower: "Fanatico de los FGs, mi saga favorita es Mortal Kombat pero le agarre amor a TEKKEN. Desde chico me criaron los RTS como Starcraft y Age of Empire. Mi primer consola fue un Sega genesis",
+    lower: "Los invito a agregarme a steam (? : N1rval",
   },
 ];
 
